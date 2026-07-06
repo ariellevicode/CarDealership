@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarDealership.Commands
+namespace CarDealership.CLI.Commands.Admin
 {
-    public interface ICommand
+    internal class ViewInventory
     {
-        void Execute();
-        void Undo();
     }
 }

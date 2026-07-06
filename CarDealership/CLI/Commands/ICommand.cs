@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarDealership.Commands.Client
+namespace CarDealership.CLI.Commands
 {
-    internal class BuyCommand
+    public interface ICommand
     {
+        void Execute();
+        void Undo();
     }
 }
