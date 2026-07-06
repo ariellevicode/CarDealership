@@ -9,15 +9,9 @@ namespace CarDealership.CarClasses
 {
     internal class GasCar : Car
     {
-        public double tankCapacity { get; }
-        public FuelType fuelType { get; }
-        public double kmPerLiter { get; }
-        public GasCar(string make, double odometer, string model, int year, double tankCapacity, FuelType fuelType, double kmPerLiter)
-        : base(make, model, year, odometer)
-        {
-            this.tankCapacity = tankCapacity;
-            this.kmPerLiter = kmPerLiter;
-            this.fuelType = fuelType;
-        }
+        public double tankCapacity { get; set; }
+        public FuelType fuelType { get; set; }
+        public double kmPerLiter { get; set; }
+        
     }
 }

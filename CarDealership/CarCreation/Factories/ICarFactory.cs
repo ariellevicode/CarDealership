@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarDealership.CarClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace CarDealership.CarCreation.Factories
 {
     internal interface ICarFactory
     {
+        Car CreateCar(string make, string model, int year, double odometer);
     }
 }

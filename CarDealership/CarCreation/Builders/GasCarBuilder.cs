@@ -1,12 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CarDealership.CarClasses;
 
 namespace CarDealership.CarCreation.Builders
 {
-    internal class GasCarBuilder
+    internal class GasCarBuilder : CarBuilder
     {
+        public GasCar car;
+
+        override public void reset()
+        {
+            car = new GasCar();
+        }
+
+        
+        override public GasCarBuilder SetMake(string make) { car.make = make; return this; }
+        override public GasCarBuilder SetModel(string model) { car.model = model; return this; }
+        override public GasCarBuilder SetYear(int year) { car.year = year; return this; }
+        override public GasCarBuilder SetOdometer(double odometer) { car.odometer = odometer; return this; }
+
+        
+        public GasCarBuilder SetFuelType(FuelType fuelType) { car.fuelType = fuelType; return this; }
+        public GasCarBuilder SetTankCapacity(double tankCapacity) { car.tankCapacity = tankCapacity; return this; }
+        public GasCarBuilder SetKmPerLiter(double kmPerLiter) { car.kmPerLiter = kmPerLiter; return this; }
+
+        override public Car Build()
+        {
+            Car finishedCar = this.car;
+            this.reset();
+            return finishedCar;
+        }
+       
     }
 }

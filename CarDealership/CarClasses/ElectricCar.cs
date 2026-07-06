@@ -8,16 +8,10 @@ namespace CarDealership.CarClasses
 {
     internal class ElectricCar : Car
     {
-        public double batteryCapacity { get; }
-        public double kmPerKW { get; }
-        public double chargeRate { get; }
+        public double batteryCapacity { get; set; }
+        public double kmPerKW { get; set; }
+        public double chargeRate { get; set; }
 
-        public ElectricCar(string make, string model, int year, double odometer, double batteryCapacityKwh, double kmPerKW, double chargeRate)
-                : base(make, model, year, odometer)
-        {
-            this.kmPerKW = kmPerKW;
-            this.chargeRate = chargeRate;
-            this.batteryCapacity = batteryCapacityKwh;
-        }
+        
     }
 }

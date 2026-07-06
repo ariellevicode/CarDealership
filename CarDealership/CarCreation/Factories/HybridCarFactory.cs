@@ -1,12 +1,15 @@
-﻿using System;
+﻿using CarDealership.CarClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CarDealership.CarCreation.Factories
 {
-    internal class HybridCarFactory
+    internal class HybridCarFactory : ICarFactory
     {
+       
     }
 }
