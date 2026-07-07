@@ -11,9 +11,9 @@ namespace CarDealership.CLI.Commands.Admin
     internal class ViewInventoryCommand : ICommand
     {
 
-        private CommandReciver _receiver;
+        private IReceiver _receiver;
 
-        public ViewInventoryCommand(CommandReciver receiver)
+        public ViewInventoryCommand(IReceiver receiver)
         {
             _receiver = receiver;
         }

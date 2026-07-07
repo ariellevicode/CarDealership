@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CarDealership.CLI.Commands
 {
-    internal class CommandReciver
+    internal class CommandReciver : IReceiver
     {
         private DealershipInventory _database;
         public CommandReciver()

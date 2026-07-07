@@ -4,7 +4,7 @@ using System;
 
 namespace CarDealership.CLI
 {
-    internal class CarConsolePrompter
+    internal class CarConsolePrompter : IPrompter
     {
         public Car AskUserForCarDetails(string actionType)
         {

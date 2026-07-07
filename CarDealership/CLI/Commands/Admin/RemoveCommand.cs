@@ -10,11 +10,11 @@ namespace CarDealership.CLI.Commands.Admin
 {
     internal class RemoveCommand : ICommand
     {
-        private CommandReciver _receiver;
-        private CarConsolePrompter _prompter;
+        private IReceiver _receiver;
+        private IPrompter _prompter;
 
 
-        public RemoveCommand(CommandReciver receiver, CarConsolePrompter prompter)
+        public RemoveCommand(IReceiver receiver, IPrompter prompter)
         {
             _receiver = receiver;
             _prompter = prompter;

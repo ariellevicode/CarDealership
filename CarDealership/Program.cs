@@ -1,6 +1,7 @@
 ﻿using CarDealership.CarClasses;
 using CarDealership.CarCreation.Builders;
 using CarDealership.CLI;
+using CarDealership.CLI.Commands;
 
 namespace CarDealership
 {
@@ -8,8 +9,15 @@ namespace CarDealership
     {
         static void Main(string[] args)
         {
-            CLIApp c = new CLIApp();
-            c.Start();
+            
+            IReceiver myReceiver = new CommandReciver();
+            IPrompter myPrompter = new CarConsolePrompter();
+
+            
+            CLIApp app = new CLIApp(myReceiver, myPrompter);
+
+            
+            app.Start();
         }
     }
 }
