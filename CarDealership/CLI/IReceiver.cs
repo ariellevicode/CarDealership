@@ -10,7 +10,8 @@ namespace CarDealership.CLI
     internal interface IReceiver
     {
         void AddCar(Car car);
-        void RemoveCar(Car car);
+        void RemoveCar(string carId);
+        Car GetCarById(string carId);
         void PrintInventory();
     }
 }

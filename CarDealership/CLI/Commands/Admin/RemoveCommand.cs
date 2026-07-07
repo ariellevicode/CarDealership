@@ -22,13 +22,21 @@ namespace CarDealership.CLI.Commands.Admin
 
         public void Execute()
         {
+            
+            string targetId = _prompter.AskUserForCarId();
 
-            Car carToRemove = _prompter.AskUserForCarDetails("Remove");
+            
+            Car carToRemove = _receiver.GetCarById(targetId);
 
-
+           
             if (carToRemove != null)
             {
-                _receiver.RemoveCar(carToRemove);
+                _receiver.RemoveCar(targetId);
+                Console.WriteLine($"\n[Success] Car has been removed from the inventory.");
+            }
+            else
+            {
+                Console.WriteLine($"\n[Error] No car found with ID: {targetId}");
             }
         }
     }

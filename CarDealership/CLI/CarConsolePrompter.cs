@@ -28,7 +28,7 @@ namespace CarDealership.CLI
             switch (carType)
             {
                 case CarType.Hybrid:
-                    {   
+                    {
                         HybridCarBuilder hybridCarBuilder = new HybridCarBuilder();
                         hybridCarBuilder.reset();
 
@@ -64,16 +64,16 @@ namespace CarDealership.CLI
                                 .SetChargeRate(maxChargeRateKw)
                                 .Build();
 
-                        return hCar; 
+                        return hCar;
                     }
 
                 case CarType.Electric:
-                    {   
+                    {
                         ElectricCarBuilder e = new ElectricCarBuilder();
                         e.reset();
 
                         Console.Write("Enter Battery capacity: ");
-                        double batteryCapacity = double.Parse(Console.ReadLine()); 
+                        double batteryCapacity = double.Parse(Console.ReadLine());
 
                         Console.Write("Enter Efficiency (km/kw): ");
                         double kmPerKw = double.Parse(Console.ReadLine());
@@ -81,7 +81,7 @@ namespace CarDealership.CLI
                         Console.Write("Enter Maximum charge rate: ");
                         double maxChargeRateKw = double.Parse(Console.ReadLine());
 
-                        
+
                         Car eCar = e.SetModel(model)
                                 .SetMake(make)
                                 .SetYear(year)
@@ -92,7 +92,7 @@ namespace CarDealership.CLI
                                 .SetChargeRate(maxChargeRateKw)
                                 .Build();
 
-                        return eCar; 
+                        return eCar;
                     }
                 case CarType.Gas:
                     {
@@ -126,7 +126,22 @@ namespace CarDealership.CLI
 
                 default:
                     Console.WriteLine("[Error] Unsupported car type.");
-                    return null; 
+                    return null;
+            }
+        }
+        public string AskUserForCarId()
+        {
+            while (true)
+            {
+                Console.Write("\nEnter the Unique ID of the car: ");
+                string inputId = Console.ReadLine()?.Trim();
+
+                if (!string.IsNullOrEmpty(inputId))
+                {
+                    return inputId;
+                }
+
+                Console.WriteLine("[Error] ID cannot be empty. Please try again.");
             }
         }
     }

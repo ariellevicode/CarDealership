@@ -23,10 +23,16 @@ namespace CarDealership.CLI.Commands
             _database.Add(car);
             Console.WriteLine($"[System] Added {car.make} car to inventory.");
         }
-        public void RemoveCar(Car car)
+        // Update to accept the string ID
+        public void RemoveCar(string carId)
         {
-            _database.Remove(car);
-            Console.WriteLine($"[System] Attempted to remove {car.make} car.");
+            _database.Remove(carId);
+        }
+
+        // Add the new search method
+        public Car GetCarById(string carId)
+        {
+            return _database.GetCarById(carId);
         }
         public void PrintInventory()
         {

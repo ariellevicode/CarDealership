@@ -8,6 +8,7 @@ namespace CarDealership.CarClasses
 {
     internal abstract class Car
     {
+        public string Id { get; private set; } = Guid.NewGuid().ToString();
         public string make { get; set; }
         public string model { get; set; }
         public int year { get; set; }

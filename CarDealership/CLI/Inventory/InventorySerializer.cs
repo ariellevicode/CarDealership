@@ -18,5 +18,6 @@ namespace CarDealership.CLI.Inventory
         {
             return JsonSerializer.Serialize(items, _options);
         }
+
     }
 }
