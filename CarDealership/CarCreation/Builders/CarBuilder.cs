@@ -11,6 +11,9 @@ namespace CarDealership.CarCreation.Builders
         public abstract CarBuilder SetModel(string model);
         public abstract CarBuilder SetYear(int year);
         public abstract CarBuilder SetOdometer(double odometer);
+        public abstract CarBuilder SetCarType(CarType type);
+
+
 
         public abstract Car Build();
     }

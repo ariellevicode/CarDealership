@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CarDealership.CarCreation.Factories
 {
-    internal class HybridCarFactory : ICarFactory
+    internal class HybridCarFactory 
     {
        
     }

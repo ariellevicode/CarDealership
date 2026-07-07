@@ -21,6 +21,7 @@ namespace CarDealership.CarCreation.Builders
         override public ElectricCarBuilder SetModel(string model) { car.model = model; return this; }
         override public ElectricCarBuilder SetYear(int year) { car.year = year; return this; }
         override public ElectricCarBuilder SetOdometer(double odometer) { car.odometer = odometer; return this; }
+        override public ElectricCarBuilder SetCarType(CarType type) { car.type =  type; return this; }
 
         public ElectricCarBuilder SetChargeRate(double chargeRate) { car.chargeRate = chargeRate; return this; }
         public ElectricCarBuilder SetKmPerKw(double kmPerKw) { car.kmPerKW = kmPerKw; return this; }

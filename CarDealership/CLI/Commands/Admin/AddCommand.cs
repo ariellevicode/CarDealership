@@ -11,17 +11,19 @@ namespace CarDealership.CLI.Commands.Admin
     internal class AddCommand  : ICommand
     {
         private CommandReciver _receiver;
-       
+        private Car _carToAdd;
 
-        public AddCommand(CommandReciver receiver)
+
+        public AddCommand(CommandReciver receiver , Car carToAdd)
         {
             _receiver = receiver;
-            
+            _carToAdd = carToAdd;
+
         }
 
         public void Execute()
         {
-            _receiver.AddCar();
+            _receiver.AddCar(_carToAdd);
         }
     }
 }

@@ -16,8 +16,9 @@ namespace CarDealership.CarCreation.Builders
         override public GasCarBuilder SetModel(string model) { car.model = model; return this; }
         override public GasCarBuilder SetYear(int year) { car.year = year; return this; }
         override public GasCarBuilder SetOdometer(double odometer) { car.odometer = odometer; return this; }
+        override public GasCarBuilder SetCarType(CarType type) { car.type = type; return this; }
 
-        
+
         public GasCarBuilder SetFuelType(FuelType fuelType) { car.fuelType = fuelType; return this; }
         public GasCarBuilder SetTankCapacity(double tankCapacity) { car.tankCapacity = tankCapacity; return this; }
         public GasCarBuilder SetKmPerLiter(double kmPerLiter) { car.kmPerLiter = kmPerLiter; return this; }

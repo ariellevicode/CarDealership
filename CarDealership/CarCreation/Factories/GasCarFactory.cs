@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace CarDealership.CarCreation.Factories
 {
-    internal class GasCarFactory : ICarFactory
+    internal class GasCarFactory 
     {
         Car CreateCar(string make, string model, int year, double odometer)
         {
-            return new GasCar()
+            return new GasCar();
         }
     
 

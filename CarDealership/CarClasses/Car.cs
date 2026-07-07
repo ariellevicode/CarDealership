@@ -13,7 +13,7 @@ namespace CarDealership.CarClasses
         public int year { get; set; }
         public double odometer { get; set; }
 
-       
+        public CarType type { get; set; }
         
     }
 }

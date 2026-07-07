@@ -10,7 +10,7 @@ namespace CarDealership.CLI.Inventory
     internal class DealershipInventory
     {
         //using singleton to ensure only one instance of the inventory
-        private static readonly DealershipInventory _instance = new DealershipInventory();
+        private static readonly Lazy<DealershipInventory> _instance = new Lazy<DealershipInventory>(()=> new DealershipInventory());
 
         //object list to keep abstraction
         private List<object> _inventory = new List<object>();
@@ -23,7 +23,7 @@ namespace CarDealership.CLI.Inventory
         
         public static DealershipInventory Instance
         {
-            get { return _instance; }
+            get { return _instance.Value; }
         }
 
         

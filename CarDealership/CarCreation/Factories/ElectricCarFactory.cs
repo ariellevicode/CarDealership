@@ -7,11 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarDealership.CarCreation.Factories
 {
-    internal class ElectricCarFactory : ICarFactory
+    internal class ElectricCarFactory
     {
-        Car CreateCar(string make, string model, int year, double odometer, double batteryCapacityKwh, double kmPerKW, double chargeRate)
-        {
-            return new ElectricCar(make, model, year, odometer, batteryCapacityKwh, kmPerKW, chargeRate);
-        }
-    }
+    } 
 }
