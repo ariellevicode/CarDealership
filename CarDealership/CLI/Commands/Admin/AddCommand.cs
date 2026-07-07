@@ -8,22 +8,28 @@ using System.Threading.Tasks;
 
 namespace CarDealership.CLI.Commands.Admin
 {
-    internal class AddCommand  : ICommand
+    internal class AddCommand : ICommand
     {
         private CommandReciver _receiver;
-        private Car _carToAdd;
+        private CarConsolePrompter _prompter;
 
-
-        public AddCommand(CommandReciver receiver , Car carToAdd)
+        
+        public AddCommand(CommandReciver receiver, CarConsolePrompter prompter)
         {
             _receiver = receiver;
-            _carToAdd = carToAdd;
-
+            _prompter = prompter;
         }
 
         public void Execute()
         {
-            _receiver.AddCar(_carToAdd);
+            
+            Car carToAdd = _prompter.AskUserForCarDetails("Add");
+
+           
+            if (carToAdd != null)
+            {
+                _receiver.AddCar(carToAdd);
+            }
         }
     }
 }

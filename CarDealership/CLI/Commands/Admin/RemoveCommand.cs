@@ -8,20 +8,28 @@ using System.Threading.Tasks;
 
 namespace CarDealership.CLI.Commands.Admin
 {
-    internal class RemoveCommand
+    internal class RemoveCommand : ICommand
     {
         private CommandReciver _receiver;
-        private Car _carToRemove;
+        private CarConsolePrompter _prompter;
 
-        public RemoveCommand(CommandReciver receiver, Car car)
+
+        public RemoveCommand(CommandReciver receiver, CarConsolePrompter prompter)
         {
             _receiver = receiver;
-            _carToRemove = car;
+            _prompter = prompter;
         }
 
         public void Execute()
         {
-            _receiver.RemoveCar(_carToRemove);
+
+            Car carToRemove = _prompter.AskUserForCarDetails("Remove");
+
+
+            if (carToRemove != null)
+            {
+                _receiver.RemoveCar(carToRemove);
+            }
         }
     }
 }

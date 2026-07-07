@@ -126,7 +126,7 @@ namespace CarDealership.CLI
 
                 default:
                     Console.WriteLine("[Error] Unsupported car type.");
-                    return null; // Must return something if they type an invalid car type!
+                    return null; 
             }
         }
     }

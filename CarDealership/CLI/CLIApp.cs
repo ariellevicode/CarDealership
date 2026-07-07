@@ -13,58 +13,130 @@ namespace CarDealership.CLI
 {
     internal class CLIApp
     {
-        //temporary CLI app, will fully implement in the future
         private CommandReciver _inventoryReceiver;
         private CarConsolePrompter _prompter;
+
+        //  Create separate dictionaries for each role
+        private Dictionary<string, ICommand> _adminCommands = new Dictionary<string, ICommand>();
+        private Dictionary<string, ICommand> _customerCommands = new Dictionary<string, ICommand>();
 
         public CLIApp()
         {
 
             _inventoryReceiver = new CommandReciver();
             _prompter = new CarConsolePrompter();
+
+            // created as to not create two diffrent instances of remove command as both the admin and the customer use it
+            ICommand removeCommand = new RemoveCommand(_inventoryReceiver, _prompter);
+
+            // ADMIN commands
+            _adminCommands.Add("add", new AddCommand(_inventoryReceiver, _prompter));
+            _adminCommands.Add("remove", removeCommand);
+            _adminCommands.Add("print", new ViewInventoryCommand(_inventoryReceiver));
+
+
+            // CUSTOMER commands
+
+            _customerCommands.Add("buy", removeCommand);
+            _customerCommands.Add("print", new ViewInventoryCommand(_inventoryReceiver));
+        }
+
+        private void RunAdminLoop()
+        {
+            while (true)
+            {
+                Console.Write("\n[ADMIN] Enter a command: ");
+                string userInput = Console.ReadLine()?.ToLower();
+
+                if (userInput == "logout") return;
+
+                
+                if (_adminCommands.ContainsKey(userInput))
+                {
+                    _adminCommands[userInput].Execute();
+                }
+                else
+                {
+                    Console.WriteLine("Invalid command.");
+                }
+            }
+        }
+        private void RunCustomerLoop()
+        {
+            while (true)
+            {
+                Console.Write("\n[CUSTOMER] Enter a command (buy, print, logout): ");
+                string userInput = Console.ReadLine()?.ToLower();
+
+                if (userInput == "logout") return;
+
+                
+                if (_customerCommands.ContainsKey(userInput))
+                {
+                    _customerCommands[userInput].Execute();
+                }
+
+                else
+                {
+                    Console.WriteLine("Invalid command or insufficient permissions.");
+                }
+            }
         }
 
         public void Start()
         {
-            Console.WriteLine("=== Dealership CLI Started ===");
+            Console.WriteLine("=== Welcome to the Dealership Management System ===");
 
             while (true)
             {
-                Console.Write("Enter a command (add, print,remove, exit): ");
+                
+                Console.Write("\nLogin as (admin / customer) or type 'exit': ");
 
                 
-                string userInput = Console.ReadLine()?.ToLower();
+                string role = Console.ReadLine()?.Trim().ToLower();
 
                 
-                switch (userInput)
+                if (role == "exit")
                 {
-                    case "add":
-                        Car carToAdd = _prompter.AskUserForCarDetails("Add");
+                    Console.WriteLine("Shutting down the system. Goodbye!");
+                    return; 
+                }
 
+                
+                else if (role == "admin")
+                {
+                    Console.Write("Enter Admin Password: ");
+                    string password = Console.ReadLine();
 
-                        ICommand addCmd = new AddCommand(_inventoryReceiver,carToAdd);
-                        addCmd.Execute();
-                        break;
-                    case "remove":
-                        Car carToRemove = _prompter.AskUserForCarDetails("Remove");
+                    if (password == "admin")
+                    {
+                        Console.WriteLine("\n[System] Admin access granted.");
 
+                        
+                        RunAdminLoop();
+                    }
+                    else
+                    {
+                        Console.WriteLine("[Error] Incorrect password. Access denied.");
+                    }
+                }
 
-                        ICommand removeCmd = new AddCommand(_inventoryReceiver, carToRemove);
-                        removeCmd.Execute();
-                        break;
-                    case "print":
-                        ICommand printCmd = new ViewInventoryCommand(_inventoryReceiver);
-                        printCmd.Execute();
-                        break;
+                
+                else if (role == "customer")
+                {
+                    Console.WriteLine("\n[System] Welcome, valued customer!");
 
-                    case "exit":
-                        return; 
+                    
+                    RunCustomerLoop();
+                }
 
-                    default:
-                        Console.WriteLine("Invalid command string.");
-                        break;
+                
+                else
+                {
+                    Console.WriteLine("[Error] Unknown role. Please type 'admin', 'customer'.");
                 }
             }
         }
+
     }
 }
