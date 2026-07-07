@@ -8,20 +8,21 @@ using System.Threading.Tasks;
 
 namespace CarDealership.CLI.Commands.Admin
 {
-    internal class AddCommand  : ICommand
+    internal class ViewInventoryCommand : ICommand
     {
-        private CommandReciver _receiver;
-       
 
-        public AddCommand(CommandReciver receiver)
+        private CommandReciver _receiver;
+
+        public ViewInventoryCommand(CommandReciver receiver)
         {
             _receiver = receiver;
-            
         }
 
         public void Execute()
         {
-            _receiver.AddCar();
+            _receiver.PrintInventory();
         }
+
     }
 }
+

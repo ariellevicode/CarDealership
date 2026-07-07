@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace CarDealership.CLI.Commands.Admin
 {
-    internal class AddCommand  : ICommand
+    internal class RemoveCommand
     {
         private CommandReciver _receiver;
-       
+        private Car _carToRemove;
 
-        public AddCommand(CommandReciver receiver)
+        public RemoveCommand(CommandReciver receiver, Car car)
         {
             _receiver = receiver;
-            
+            _carToRemove = car;
         }
 
         public void Execute()
         {
-            _receiver.AddCar();
+            _receiver.RemoveCar(_carToRemove);
         }
     }
 }
