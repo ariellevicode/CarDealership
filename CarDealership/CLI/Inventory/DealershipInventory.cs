@@ -7,15 +7,26 @@ using System.Threading.Tasks;
 
 namespace CarDealership.CLI.Inventory
 {
+
+
     internal class DealershipInventory
     {
         //using singleton to ensure only one instance of the inventory
         private static readonly Lazy<DealershipInventory> _instance = new Lazy<DealershipInventory>(() => new DealershipInventory());
 
-        //object list to keep abstraction
+        
         private Dictionary<string, Car> _inventory = new Dictionary<string, Car>();
 
-        private DealershipInventory() { }
+        private Dictionary<string , CarIndex> _registry = new Dictionary<string , CarIndex>(StringComparer.OrdinalIgnoreCase);
+
+
+        private DealershipInventory()
+        {
+            _registry.Add("make", new CarIndex(car => car.make));
+            _registry.Add("model", new CarIndex(car => car.model));
+            _registry.Add("cartype", new CarIndex(car => car.model));
+
+        }
 
 
         public static DealershipInventory Instance
@@ -24,17 +35,79 @@ namespace CarDealership.CLI.Inventory
         }
 
 
-        public void Add(Car car) { _inventory.TryAdd(car.Id, car); }
-        public void Remove(string carId) { _inventory.Remove(carId); }
-        public IReadOnlyList<object> Get() { return _inventory.Values.ToList().AsReadOnly(); }
+        public void Add(Car car)
+        {
+            if (_inventory.TryAdd(car.Id, car))
+            {
+                foreach ( var index in _registry.Values)
+                {
+                    string propertyValue = index.ValueExtractor(car);
+                    if (!index.Map.ContainsKey(propertyValue))
+                    {
+                        index.Map[propertyValue] = new List<string>();
+                    }
+                    index.Map[propertyValue].Add(car.Id);
+                }
+            }
 
+        }
+
+
+        public void Remove(string carId) 
+        {
+            if (_inventory.TryGetValue(carId, out Car carToRemove))
+            {
+                
+                foreach (var index in _registry.Values)
+                {
+                    string propertyValue = index.ValueExtractor(carToRemove);
+                    if (index.Map.ContainsKey(propertyValue))
+                    {
+                        index.Map[propertyValue].Remove(carId);
+                    }
+                }
+
+                
+                _inventory.Remove(carId);
+            }
+        }
+        
+        
+        public IReadOnlyList<object> Get() 
+        {
+            return _inventory.Values.ToList().AsReadOnly(); 
+        }
+
+        
+        
         public Car GetCarById(string carId)
         {
             if (_inventory.TryGetValue(carId, out Car foundCar))
             {
                 return foundCar;
             }
-            return null; 
+            return null;
         }
+
+        public List<Car> Search(string searchField, string searchValue)
+        {
+            List<Car> results = new List<Car>();
+
+            
+            if (_registry.TryGetValue(searchField, out CarIndex index))
+            {
+                
+                if (index.Map.TryGetValue(searchValue, out List<string> matchingIds))
+                {
+                    
+                    foreach (string id in matchingIds)
+                    {
+                        results.Add(_inventory[id]);
+                    }
+                }
+            }
+            return results;
+        }
+
     }
 }
