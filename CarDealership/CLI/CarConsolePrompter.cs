@@ -22,8 +22,8 @@ namespace CarDealership.CLI
             Console.Write("Enter Odometer: ");
             double odometer = double.Parse(Console.ReadLine());
 
-            Console.Write("Enter Car type: (Hybrid, Electric, Gas): ");
-            Enum.TryParse<CarType>(Console.ReadLine(), true, out CarType carType);
+            Console.Write("Enter Car type: (Electric : 1, Gas : 2, Hybrid : 3): ");
+            CarType carType = (CarType)int.Parse(Console.ReadLine());
 
             switch (carType)
             {
@@ -44,11 +44,11 @@ namespace CarDealership.CLI
                         Console.Write("Enter Maximum charge rate: ");
                         double maxChargeRateKw = double.Parse(Console.ReadLine());
 
-                        Console.Write("Enter Fuel type: (Gasoline, Diesel, Ethanol, Hydrogen): ");
-                        Enum.TryParse<FuelType>(Console.ReadLine(), true, out FuelType fuelType);
+                        Console.Write("Enter Fuel type: (Gasoline = 1, Diesel = 2, Ethanol = 3, Hydrogen = 4): ");
+                        FuelType fuelType = (FuelType)int.Parse(Console.ReadLine());
 
-                        Console.Write("Enter Hybrid type: (HEV, PHEV): ");
-                        Enum.TryParse<HybridCarType>(Console.ReadLine(), true, out HybridCarType hybridCarType);
+                        Console.Write("Enter Hybrid type: (HEV = 1, PHEV = 2): ");
+                        HybridCarType hybridCarType = (HybridCarType)int.Parse(Console.ReadLine());
 
                         Car hCar = hybridCarBuilder
                                 .SetModel(model)
@@ -106,8 +106,8 @@ namespace CarDealership.CLI
                         Console.Write("Enter Efficiency (km/l): ");
                         double kmPerLiter = double.Parse(Console.ReadLine());
 
-                        Console.Write("Enter Fuel type: (Gasoline, Diesel, Ethanol, Hydrogen): ");
-                        Enum.TryParse<FuelType>(Console.ReadLine(), true, out FuelType fuelType);
+                        Console.Write("Enter Fuel type: (Gasoline = 1, Diesel = 2, Ethanol = 3, Hydrogen = 4): ");
+                        FuelType fuelType = (FuelType)int.Parse(Console.ReadLine());
 
                         Car gCar = hybridCarBuilder
                                 .SetModel(model)

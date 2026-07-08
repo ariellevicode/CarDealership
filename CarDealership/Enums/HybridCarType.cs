@@ -1,5 +1,5 @@
 ﻿public enum HybridCarType
 {
-    HEV,
-    PHEV
+    HEV = 1,
+    PHEV = 2
 }

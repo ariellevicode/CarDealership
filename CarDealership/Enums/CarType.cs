@@ -1,6 +1,6 @@
 ﻿public enum CarType
 {
-    Electric,
-    Gas,
-    Hybrid
+    Electric = 1,
+    Gas = 2,
+    Hybrid = 3
 }
