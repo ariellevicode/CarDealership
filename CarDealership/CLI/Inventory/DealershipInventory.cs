@@ -24,7 +24,7 @@ namespace CarDealership.CLI.Inventory
         {
             _registry.Add("make", new CarIndex(car => car.make));
             _registry.Add("model", new CarIndex(car => car.model));
-            _registry.Add("cartype", new CarIndex(car => car.model));
+            _registry.Add("cartype", new CarIndex(car => car.type.ToString()));
 
         }
 
