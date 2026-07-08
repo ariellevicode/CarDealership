@@ -41,12 +41,12 @@ namespace CarDealership.CLI.Inventory
             {
                 foreach ( var index in _registry.Values)
                 {
-                    string propertyValue = index.ValueExtractor(car);
-                    if (!index.Map.ContainsKey(propertyValue))
+                    string propertyValue = index.ValueExtractor(car); // for example Toyota"
+                    if (!index.Map.ContainsKey(propertyValue)) // if "Toyota" isnt in the map dict
                     {
-                        index.Map[propertyValue] = new List<string>();
+                        index.Map[propertyValue] = new List<string>(); // create a new id string list for "Toyota"
                     }
-                    index.Map[propertyValue].Add(car.Id);
+                    index.Map[propertyValue].Add(car.Id);// else just add the id to the existing "Toyota" string list key
                 }
             }
 
@@ -55,13 +55,13 @@ namespace CarDealership.CLI.Inventory
 
         public void Remove(string carId) 
         {
-            if (_inventory.TryGetValue(carId, out Car carToRemove))
+            if (_inventory.TryGetValue(carId, out Car carToRemove)) // gets the car by its id while avoiding a crash if the car doesnt exist
             {
                 
-                foreach (var index in _registry.Values)
+                foreach (var index in _registry.Values) // index is a CarIndex 
                 {
-                    string propertyValue = index.ValueExtractor(carToRemove);
-                    if (index.Map.ContainsKey(propertyValue))
+                    string propertyValue = index.ValueExtractor(carToRemove); //"Toyota"
+                    if (index.Map.ContainsKey(propertyValue)) 
                     {
                         index.Map[propertyValue].Remove(carId);
                     }
@@ -89,24 +89,24 @@ namespace CarDealership.CLI.Inventory
             return null;
         }
 
-        public List<Car> Search(string searchField, string searchValue)
+        public List<Car> Search(string searchField, string searchValue) // for example "make" "Toyota"
         {
             List<Car> results = new List<Car>();
 
             
-            if (_registry.TryGetValue(searchField, out CarIndex index))
+            if (_registry.TryGetValue(searchField, out CarIndex index)) // gets "make"'s key (carIndex)
             {
                 
-                if (index.Map.TryGetValue(searchValue, out List<string> matchingIds))
+                if (index.Map.TryGetValue(searchValue, out List<string> matchingIds))//gets the CarIndex's key (list of ids)
                 {
                     
-                    foreach (string id in matchingIds)
+                    foreach (string id in matchingIds) // for each id
                     {
-                        results.Add(_inventory[id]);
+                        results.Add(_inventory[id]);// add the id's corresponding car into the list
                     }
                 }
             }
-            return results;
+            return results; 
         }
 
     }

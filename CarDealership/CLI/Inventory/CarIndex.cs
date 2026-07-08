@@ -14,8 +14,10 @@ namespace CarDealership.CLI.Inventory
         public Dictionary<string, List<string>> Map { get; } = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
         public Func<Car, string> ValueExtractor { get; }
 
-        
 
+        
+        
+        
         public CarIndex(Func<Car, string> extractor)
         {
             ValueExtractor = extractor;
