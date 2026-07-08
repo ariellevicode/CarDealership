@@ -22,8 +22,8 @@ namespace CarDealership.CLI.Inventory
 
         private DealershipInventory()
         {
-            _registry.Add("make", new CarIndex(car => car.make));
-            _registry.Add("model", new CarIndex(car => car.model));
+            _registry.Add("make", new CarIndex(car => car.make.ToString()));
+            _registry.Add("model", new CarIndex(car => car.model.ToString()));
             _registry.Add("cartype", new CarIndex(car => car.type.ToString()));
 
         }
