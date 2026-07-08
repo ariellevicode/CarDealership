@@ -12,8 +12,8 @@ namespace CarDealership.CarCreation.Builders
         }
 
         
-        override public GasCarBuilder SetMake(string make) { car.make = make; return this; }
-        override public GasCarBuilder SetModel(string model) { car.model = model; return this; }
+        override public GasCarBuilder SetMake(CarMake make) { car.make = make; return this; }
+        override public GasCarBuilder SetModel(CarModel model) { car.model = model; return this; }
         override public GasCarBuilder SetYear(int year) { car.year = year; return this; }
         override public GasCarBuilder SetOdometer(double odometer) { car.odometer = odometer; return this; }
         override public GasCarBuilder SetCarType(CarType type) { car.type = type; return this; }
