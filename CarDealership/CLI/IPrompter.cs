@@ -8,5 +8,8 @@ using System.Threading.Tasks;
 internal interface IPrompter
 {
     Car AskUserForCarDetails(string actionType);
-    string AskUserForCarId(); 
+    string AskUserForCarId();
+
+    string AskUserForSearchField();
+    string AskUserForSearchValue();
 }

@@ -16,7 +16,7 @@ namespace CarDealership.CLI
         private IReceiver _receiver;
         private IPrompter _prompter;
 
-        //  Create separate dictionaries for each role
+        
         private Dictionary<string, ICommand> _adminCommands = new Dictionary<string, ICommand>();
         private Dictionary<string, ICommand> _customerCommands = new Dictionary<string, ICommand>();
 
@@ -28,17 +28,20 @@ namespace CarDealership.CLI
 
             // created as to not create two diffrent instances of remove command as both the admin and the customer use it
             ICommand removeCommand = new RemoveCommand(_receiver, _prompter);
+            ICommand searchCommand = new SearchCommand(_receiver, _prompter);
 
             // ADMIN commands
             _adminCommands.Add("add", new AddCommand(_receiver, _prompter));
             _adminCommands.Add("remove", removeCommand);
             _adminCommands.Add("print", new ViewInventoryCommand(_receiver));
+            _adminCommands.Add("search", searchCommand);
 
 
             // CUSTOMER commands
 
             _customerCommands.Add("buy", removeCommand);
             _customerCommands.Add("print", new ViewInventoryCommand(_receiver));
+            _customerCommands.Add("search", searchCommand);
         }
 
         private void RunAdminLoop()

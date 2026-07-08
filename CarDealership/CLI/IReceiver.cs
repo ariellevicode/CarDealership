@@ -12,6 +12,8 @@ namespace CarDealership.CLI
         void AddCar(Car car);
         void RemoveCar(string carId);
         Car GetCarById(string carId);
+
+        List<Car> SearchCar(string searchField, string searchValue);
         void PrintInventory();
     }
 }
