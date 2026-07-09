@@ -21,11 +21,14 @@ namespace CarDealership.CLI.Inventory
 
         private readonly object _inventoryLock = new object();
 
+        private readonly string _filePath = "cars.json";
+
         private DealershipInventory()
         {
             _registry.Add("make", new CarIndex(car => car.make.ToString()));
             _registry.Add("model", new CarIndex(car => car.model.ToString()));
             _registry.Add("cartype", new CarIndex(car => car.type.ToString()));
+            LoadDatabaseOnStartup();
 
         }
 
@@ -35,6 +38,39 @@ namespace CarDealership.CLI.Inventory
             get { return _instance.Value; }
         }
 
+        private void LoadDatabaseOnStartup()
+        {
+            InventorySerializer serializer = new InventorySerializer();
+            List<Car> LoadedCars = serializer.LoadFromFile(_filePath);
+
+            
+            lock (_inventoryLock)
+            {
+                
+                foreach (Car car in LoadedCars)
+                {
+                    if (_inventory.TryAdd(car.Id, car))
+                    {
+                        foreach (var index in _registry.Values)
+                        {
+                            string propertyValue = index.ValueExtractor(car);
+                            if (!index.Map.ContainsKey(propertyValue))
+                            {
+                                index.Map[propertyValue] = new List<string>();
+                            }
+                            index.Map[propertyValue].Add(car.Id);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void SaveDatabase()
+        {
+            // We extract the current inventory and hand it to the serializer
+            InventorySerializer serializer = new InventorySerializer();
+            serializer.SaveToFile(_inventory.Values, _filePath);
+        }
 
         public void Add(Car car)
         {
@@ -42,15 +78,16 @@ namespace CarDealership.CLI.Inventory
             {
                 if (_inventory.TryAdd(car.Id, car))
                 {
-                    foreach (var index in _registry.Values)
+                    foreach (var index in _registry.Values)// for each CarIndex
                     {
-                        string propertyValue = index.ValueExtractor(car);
-                        if (!index.Map.ContainsKey(propertyValue))
+                        string propertyValue = index.ValueExtractor(car);//"toyota" , "ferrari" 
+                        if (!index.Map.ContainsKey(propertyValue)) // if it doesnt contain the key("toyota")
                         {
-                            index.Map[propertyValue] = new List<string>();
+                            index.Map[propertyValue] = new List<string>();// add the value (id list)
                         }
-                        index.Map[propertyValue].Add(car.Id);
+                        index.Map[propertyValue].Add(car.Id);// add the id to the stirng list2
                     }
+                    SaveDatabase();
                 }
             }
            
@@ -76,8 +113,9 @@ namespace CarDealership.CLI.Inventory
 
                     _inventory.Remove(carId);
                 }
+                SaveDatabase();
             }
-           
+
         }
         
         
