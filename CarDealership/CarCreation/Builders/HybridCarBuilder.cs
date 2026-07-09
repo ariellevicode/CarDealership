@@ -16,7 +16,7 @@ namespace CarDealership.CarCreation.Builders
         override public HybridCarBuilder SetModel(CarModel model) { car.model = model; return this; }
         override public HybridCarBuilder SetYear(int year) { car.year = year; return this; }
         override public HybridCarBuilder SetOdometer(double odometer) { car.odometer = odometer; return this; }
-
+        override public HybridCarBuilder SetPrice(double price) { car.price = price; return this; }
         override public HybridCarBuilder SetCarType(CarType type) { car.type = type; return this; }
        
 

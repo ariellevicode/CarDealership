@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarDealership.CarClasses
 {
-    internal class ElectricCar : Car
+    public class ElectricCar : Car
     {
         public double batteryCapacity { get; set; }
         public double kmPerKW { get; set; }

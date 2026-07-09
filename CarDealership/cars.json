@@ -1,0 +1,15 @@
+[
+  {
+    "$type": "GasCar",
+    "tankCapacity": 1230,
+    "fuelType": "Gasoline",
+    "kmPerLiter": 12,
+    "Id": "707b51f9-c055-4b21-b6db-ae4a741ca7de",
+    "make": "Toyota",
+    "model": "RAV4",
+    "year": 2012,
+    "odometer": 12,
+    "type": "Gas",
+    "price": 12030
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CarDealership": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\ariel\\source\\repos\\ariellevicode\\CarDealership\\CarDealership"
+    }
+  }
+}

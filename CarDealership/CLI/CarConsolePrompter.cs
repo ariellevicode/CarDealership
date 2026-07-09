@@ -22,6 +22,9 @@ namespace CarDealership.CLI
             Console.Write("Enter Car type: (Electric : 1, Gas : 2, Hybrid : 3): ");
             CarType carType = (CarType)int.Parse(Console.ReadLine());
 
+            Console.Write("Enter Price: ");
+            double price = double.Parse(Console.ReadLine());
+
             switch (carType)
             {
                 case CarType.Hybrid:
@@ -51,6 +54,7 @@ namespace CarDealership.CLI
                                 .SetModel(model)
                                 .SetMake(make)
                                 .SetYear(year)
+                                .SetPrice(price)
                                 .SetCarType(carType)
                                 .SetOdometer(odometer)
                                 .SetFuelType(fuelType)
@@ -82,6 +86,7 @@ namespace CarDealership.CLI
                         Car eCar = e.SetModel(model)
                                 .SetMake(make)
                                 .SetYear(year)
+                                .SetPrice(price)
                                 .SetCarType(carType)
                                 .SetOdometer(odometer)
                                 .SetBatteryCapacity(batteryCapacity)
@@ -93,8 +98,8 @@ namespace CarDealership.CLI
                     }
                 case CarType.Gas:
                     {
-                        HybridCarBuilder hybridCarBuilder = new HybridCarBuilder();
-                        hybridCarBuilder.reset();
+                        GasCarBuilder gasCarBuilder = new GasCarBuilder();
+                        gasCarBuilder.reset();
 
                         Console.Write("Enter Tank capacity: ");
                         double tankCapacity = double.Parse(Console.ReadLine());
@@ -106,10 +111,11 @@ namespace CarDealership.CLI
                         Console.Write("Enter Fuel type: (Gasoline = 1, Diesel = 2, Ethanol = 3, Hydrogen = 4): ");
                         FuelType fuelType = (FuelType)int.Parse(Console.ReadLine());
 
-                        Car gCar = hybridCarBuilder
+                        Car gCar = gasCarBuilder
                                 .SetModel(model)
                                 .SetMake(make)
                                 .SetYear(year)
+                                .SetPrice(price)
                                 .SetCarType(carType)
                                 .SetOdometer(odometer)
                                 .SetFuelType(fuelType)

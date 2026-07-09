@@ -9,14 +9,9 @@ namespace CarDealership
     {
         static void Main(string[] args)
         {
-            
-            IReceiver myReceiver = new CommandReciver();
-            IPrompter myPrompter = new CarConsolePrompter();
 
-            
-            CLIApp app = new CLIApp(myReceiver, myPrompter);
+            CLIApp app = new CLIApp(new CommandReciver(), new CarConsolePrompter());
 
-            
             app.Start();
         }
     }

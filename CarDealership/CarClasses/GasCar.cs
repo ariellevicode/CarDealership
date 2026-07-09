@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarDealership.CarClasses
 {
-    internal class GasCar : Car
+    public class GasCar : Car
     {
         public double tankCapacity { get; set; }
         public FuelType fuelType { get; set; }
