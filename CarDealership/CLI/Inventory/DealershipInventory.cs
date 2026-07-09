@@ -19,6 +19,7 @@ namespace CarDealership.CLI.Inventory
 
         private Dictionary<string , CarIndex> _registry = new Dictionary<string , CarIndex>(StringComparer.OrdinalIgnoreCase);
 
+        private readonly object _inventoryLock = new object();
 
         private DealershipInventory()
         {
@@ -37,76 +38,96 @@ namespace CarDealership.CLI.Inventory
 
         public void Add(Car car)
         {
-            if (_inventory.TryAdd(car.Id, car))
+            lock (_inventoryLock)
             {
-                foreach ( var index in _registry.Values)
+                if (_inventory.TryAdd(car.Id, car))
                 {
-                    string propertyValue = index.ValueExtractor(car);
-                    if (!index.Map.ContainsKey(propertyValue))
+                    foreach (var index in _registry.Values)
                     {
-                        index.Map[propertyValue] = new List<string>();
+                        string propertyValue = index.ValueExtractor(car);
+                        if (!index.Map.ContainsKey(propertyValue))
+                        {
+                            index.Map[propertyValue] = new List<string>();
+                        }
+                        index.Map[propertyValue].Add(car.Id);
                     }
-                    index.Map[propertyValue].Add(car.Id);
                 }
             }
-
+           
         }
 
 
         public void Remove(string carId) 
         {
-            if (_inventory.TryGetValue(carId, out Car carToRemove))
+            lock (_inventoryLock)
             {
-                
-                foreach (var index in _registry.Values)
+                if (_inventory.TryGetValue(carId, out Car carToRemove))
                 {
-                    string propertyValue = index.ValueExtractor(carToRemove);
-                    if (index.Map.ContainsKey(propertyValue))
-                    {
-                        index.Map[propertyValue].Remove(carId);
-                    }
-                }
 
-                
-                _inventory.Remove(carId);
+                    foreach (var index in _registry.Values)
+                    {
+                        string propertyValue = index.ValueExtractor(carToRemove);
+                        if (index.Map.ContainsKey(propertyValue))
+                        {
+                            index.Map[propertyValue].Remove(carId);
+                        }
+                    }
+
+
+                    _inventory.Remove(carId);
+                }
             }
+           
         }
         
         
         public IReadOnlyList<object> Get() 
         {
-            return _inventory.Values.ToList().AsReadOnly(); 
+            lock (_inventoryLock)
+            {
+                return _inventory.Values.ToList().AsReadOnly();
+            }
+           
         }
 
         
         
         public Car GetCarById(string carId)
         {
-            if (_inventory.TryGetValue(carId, out Car foundCar))
+            lock (_inventoryLock)
             {
-                return foundCar;
+                if (_inventory.TryGetValue(carId, out Car foundCar))
+                {
+                    return foundCar;
+                }
+                return null;
             }
-            return null;
+            
         }
 
         public List<Car> Search(string searchField, string searchValue)
         {
-            List<Car> results = new List<Car>();
-
-            
-            if (_registry.TryGetValue(searchField, out CarIndex index))
+            lock (_inventoryLock)
             {
-                
-                if (index.Map.TryGetValue(searchValue, out List<string> matchingIds))
+                List<Car> results = new List<Car>();
+
+
+                if (_registry.TryGetValue(searchField, out CarIndex index))
                 {
-                    
-                    foreach (string id in matchingIds)
+
+                    if (index.Map.TryGetValue(searchValue, out List<string> matchingIds))
                     {
-                        results.Add(_inventory[id]);
+
+                        foreach (string id in matchingIds)
+                        {
+                            results.Add(_inventory[id]);
+                        }
                     }
                 }
+                return results;
             }
-            return results;
+
+            
         }
 
     }
