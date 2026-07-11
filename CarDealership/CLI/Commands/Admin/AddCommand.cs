@@ -10,25 +10,23 @@ namespace CarDealership.CLI.Commands.Admin
 {
     internal class AddCommand : ICommand
     {
-        private IReceiver _receiver;
-        private IPrompter _prompter;
+        private readonly IInventoryWriter _writer;
+        private readonly IPrompter _prompter;
 
-
-        public AddCommand(IReceiver receiver, IPrompter prompter)
+        public AddCommand(IInventoryWriter writer, IPrompter prompter)
         {
-            _receiver = receiver;
+            _writer = writer;
             _prompter = prompter;
         }
 
         public void Execute()
         {
-            
             Car carToAdd = _prompter.AskUserForCarDetails("Add");
 
-           
             if (carToAdd != null)
             {
-                _receiver.AddCar(carToAdd);
+                _writer.Add(carToAdd);
+                Console.WriteLine($"[System] Added car to inventory.");
             }
         }
     }

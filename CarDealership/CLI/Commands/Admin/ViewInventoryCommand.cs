@@ -10,19 +10,20 @@ namespace CarDealership.CLI.Commands.Admin
 {
     internal class ViewInventoryCommand : ICommand
     {
+        private readonly IInventoryReader _reader;
 
-        private IReceiver _receiver;
-
-        public ViewInventoryCommand(IReceiver receiver)
+        public ViewInventoryCommand(IInventoryReader reader)
         {
-            _receiver = receiver;
+            _reader = reader;
         }
 
         public void Execute()
         {
-            _receiver.PrintInventory();
+            InventorySerializer serializer = new InventorySerializer();
+            var currentList = _reader.Get();
+            string jsonOutput = serializer.ToJson(currentList);
+            Console.WriteLine(jsonOutput);
         }
-
     }
 }
 

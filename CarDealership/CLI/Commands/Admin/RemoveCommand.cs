@@ -10,28 +10,25 @@ namespace CarDealership.CLI.Commands.Admin
 {
     internal class RemoveCommand : ICommand
     {
-        private IReceiver _receiver;
-        private IPrompter _prompter;
+        private readonly IInventoryWriter _writer;
+        private readonly IInventoryReader _reader;
+        private readonly IPrompter _prompter;
 
-
-        public RemoveCommand(IReceiver receiver, IPrompter prompter)
+        public RemoveCommand(IInventoryWriter writer, IInventoryReader reader, IPrompter prompter)
         {
-            _receiver = receiver;
+            _writer = writer;
+            _reader = reader;
             _prompter = prompter;
         }
 
         public void Execute()
         {
-            
             string targetId = _prompter.AskUserForCarId();
+            Car carToRemove = _reader.GetCarById(targetId);
 
-            
-            Car carToRemove = _receiver.GetCarById(targetId);
-
-           
             if (carToRemove != null)
             {
-                _receiver.RemoveCar(targetId);
+                _writer.Remove(targetId);
                 Console.WriteLine($"\n[Success] Car has been removed from the inventory.");
             }
             else

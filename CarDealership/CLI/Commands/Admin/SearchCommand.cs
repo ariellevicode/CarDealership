@@ -1,4 +1,5 @@
 ﻿using CarDealership.CarClasses;
+using CarDealership.CLI.Inventory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,22 +10,21 @@ namespace CarDealership.CLI.Commands.Admin
 {
     internal class SearchCommand : ICommand
     {
-        private IReceiver _receiver;
-        private IPrompter _prompter;
+        private readonly IInventoryReader _reader;
+        private readonly IPrompter _prompter;
 
-        public SearchCommand(IReceiver receiver, IPrompter prompter)
+        public SearchCommand(IInventoryReader reader, IPrompter prompter)
         {
-            _receiver = receiver;
+            _reader = reader;
             _prompter = prompter;
         }
 
         public void Execute()
         {
-            
-            string searchField = _prompter.AskUserForSearchField(); //  "cartype"
-            string searchValue = _prompter.AskUserForSearchValue(); //  "HybridCar"
+            string searchField = _prompter.AskUserForSearchField();
+            string searchValue = _prompter.AskUserForSearchValue();
 
-            List<Car> foundCars = _receiver.SearchCar(searchField, searchValue);
+            List<Car> foundCars = _reader.Search(searchField, searchValue);
 
             Console.WriteLine($"\n--- Search Results for {searchField}: {searchValue} ---");
 
@@ -36,7 +36,7 @@ namespace CarDealership.CLI.Commands.Admin
 
             foreach (Car car in foundCars)
             {
-                Console.WriteLine($"- [{car.Id}] {car.make} {car.model}");
+                Console.WriteLine($"- [{car.Id}] {car.make} {car.model} - ${car.price}");
             }
         }
     }
