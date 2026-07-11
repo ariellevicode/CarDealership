@@ -11,5 +11,6 @@ namespace CarDealership.CLI.Inventory
     {
         Car GetCarById(string carId);
         List<Car> Search(string searchField, string searchValue);
+        IReadOnlyList<object> Get();
     }
 }
