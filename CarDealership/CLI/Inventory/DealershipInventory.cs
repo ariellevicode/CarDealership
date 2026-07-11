@@ -9,7 +9,7 @@ namespace CarDealership.CLI.Inventory
 {
 
 
-    internal class DealershipInventory
+    internal class DealershipInventory : IInventory
     {
         //using singleton to ensure only one instance of the inventory
         private static readonly Lazy<DealershipInventory> _instance = new Lazy<DealershipInventory>(() => new DealershipInventory());
@@ -65,7 +65,7 @@ namespace CarDealership.CLI.Inventory
             }
         }
 
-        private void SaveDatabase()
+        public void SaveDatabase()
         {
             // We extract the current inventory and hand it to the serializer
             InventorySerializer serializer = new InventorySerializer();
