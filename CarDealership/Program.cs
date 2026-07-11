@@ -10,17 +10,9 @@ namespace CarDealership
     {
         static void Main(string[] args)
         {
-            
-            IPrompter prompter = new CarConsolePrompter();
 
-            CLIApp app = new CLIApp(
-                writer: DealershipInventory.Instance,
-                baseReader: DealershipInventory.Instance,
-                storage: DealershipInventory.Instance,
-                prompter: prompter
-            );
-
-            app.Start();
+            CarDealershipFacade appFacade = new CarDealershipFacade();
+            appFacade.RunApplication();
         }
     }
 }
