@@ -7,15 +7,9 @@ using System.Threading.Tasks;
 
 namespace CarDealership.CLI.Inventory
 {
-    public interface IInventory
+    internal interface IInventoryReader
     {
-        void Add(Car car);
-        void Remove(string carId);
-        IReadOnlyList<object> Get();
         Car GetCarById(string carId);
         List<Car> Search(string searchField, string searchValue);
-        void SaveDatabase();
-
-
     }
 }

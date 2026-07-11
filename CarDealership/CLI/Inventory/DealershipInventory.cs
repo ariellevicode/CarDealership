@@ -9,7 +9,7 @@ namespace CarDealership.CLI.Inventory
 {
 
 
-    internal class DealershipInventory : IInventory
+    internal class DealershipInventory : IInventoryReader, IInventoryWriter, IInventoryStorage
     {
         //using singleton to ensure only one instance of the inventory
         private static readonly Lazy<DealershipInventory> _instance = new Lazy<DealershipInventory>(() => new DealershipInventory());
